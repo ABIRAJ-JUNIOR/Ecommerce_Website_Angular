@@ -1,0 +1,80 @@
+<nav class="navbar bg-body-tertiary d-flex justify-content-center">
+    <div class=" p-2 d-flex justify-content-between col-11 col-sm-11 col-md-11 col-lg-10">
+      <a class="navbar-brand">Abiraj Junior</a>
+      <div class="d-flex position-relative" >
+        <button class="btn btn-outline-dark"  data-bs-toggle="modal" data-bs-target="#AddToCartModal"  >ADD TO CART <i class="fa-solid fa-cart-shopping"></i></button>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{Count}}
+        </span>
+      </div>
+    </div>
+</nav>
+
+<app-product (product) = "AddProduct($event)"  ></app-product>
+
+
+
+<!-- Modal for Add to cart-->
+
+<div class="modal fade modal-lg" id="AddToCartModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    
+    <div class="modal-content" *ngIf="CartProductArray.length == 0">
+
+      <div class="d-flex justify-content-between ps-3 pe-3 pt-3">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add To Cart Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body ">
+        <div class="d-flex justify-content-center">
+          <img src="./image.png" alt="" width="550px">
+        </div>
+        <div >
+          <p class="fs-2 text-center text-secondary m-0">Empty</p>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button href="#" class="btn btn-primary mt-3 col-5" data-bs-dismiss="modal" aria-label="Close">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-content" *ngIf="CartProductArray.length != 0">
+
+      <div class="d-flex justify-content-between ps-3 pe-3 pt-3">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add To Cart Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body ">
+        <div >
+          <div class="mt-3 d-flex justify-content-between  align-items-center border border-secondary-subtle" *ngFor="let item of CartProductArray ; let i = index">
+        
+              <div>
+                <img src="{{item.images[0]}}" alt="t-shirt" width="50px">
+              </div>
+              <div class="col-3">
+                <p class="m-0">{{item.name}}</p>
+              </div>
+              <div class="d-flex justify-content-between align-items-center col-2">
+                <p class="m-0">Quantity</p>
+                <div class="btn rounded-circle bg-danger p-0 col-2 text-white" (click)="Minus(item)">-</div>
+                <p class="m-0">{{item.SelectQuantity}}</p>
+                <div class="btn rounded-circle bg-danger p-0 col-2 text-white" (click)="Plus(item)">+</div>
+              </div>
+              <div>
+                <i class="fa-solid fa-trash text-danger pointer" (click)="RemoveProduct(i)"></i>
+              </div>
+              <div>
+                <button class="btn btn-primary p-2 me-3">Total {{item.TotalPrice}}$</button>
+              </div>
+
+          </div>
+          <div>
+              <button class="btn btn-danger float-end mt-3">CheckOut({{checkoutAmount}})</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

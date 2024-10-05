@@ -1,0 +1,36 @@
+<div class="d-flex justify-content-center">
+
+  <div class="row col-12 col-sm-12 col-md-12 col-lg-10">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4" *ngFor="let item of productItems">
+      <div class="card position-relative" >
+        <img src="{{item.images[0]}}" class="card-img-top" alt="dress" height="390px">
+        <div class="position-absolute mt-4 rounded-end-3 p-1 fw-bolder text-white" [style.background]="item.availableQty != 0 ? 'green':'red' ">
+          <p class="p-0 m-0">{{item.availableQty != 0 ? "Instock" : "Out of stock"}}</p>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <button class="btn bg-info p-0 col-4 fw-bolder text-white">Price{{item.price}}$</button>
+          <div>
+            <i class="fa-solid fa-star text-warning" *ngFor="let a of [].constructor(item.rating)"></i>
+          </div>   
+          <p class="card-text">{{item.description}}</p>
+          <div class="d-flex justify-content-between align-items-baseline">
+            <button href="#" class="btn" [ngClass]="item.availableQty != 0 ? 'btn-primary' : 'bg-secondary-subtle' "  [disabled]="item.availableQty == 0"   (click)="AddProduct(item)">Add to cart</button>
+            <p class="text-primary pointer" data-bs-toggle="modal" data-bs-target="#viewMoreModal" (click) = "selectedProduct = item">view more</p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <!-- Modal  -->
+<div class="modal fade modal-lg" id="viewMoreModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <app-product-popup [product] = "selectedProduct" ></app-product-popup>
+    </div>
+  </div>
+</div>

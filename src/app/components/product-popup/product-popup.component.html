@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-between ps-3 pe-3 pt-3" *ngIf="product">
+  <h1 class="modal-title fs-5" id="ViewMoreModalLabel1">{{product.name}} Details</h1>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body" *ngIf="product">
+  <div class="d-flex ">
+
+    <div class="col-5" >
+      <img src="{{selectedImage !== '' ? selectedImage :  product.images[0]}}" alt="" width="300px" height="400px">
+      <div class="d-flex">
+        <div class="" *ngFor="let item of product.images">
+          <img (click)="changeImage(item)" src="{{item}}" class="mt-3 me-3" alt="" width="80px" height="100px">
+        </div>
+      </div>
+     
+    </div>
+  
+    <div class="col-7">
+      <p class="fw-bolder fs-4  m-0">{{product.name}}</p>
+      <i class="fa-solid fa-star text-warning "></i><i class="fa-solid fa-star text-warning"></i><i class="fa-solid fa-star text-warning"></i>
+      <p class="m-0">Price</p>
+      <p class="m-0">${{product.price}}</p>
+      <div class="rounded-3 p-1 fw-bolder text-white col-3 mt-3" [style.background]="product.availableQty != 0 ? 'green':'red' ">
+        <p class="p-0 m-0" >{{product.availableQty > 0 ? "InStock" : "Out Of Stock"}} </p>
+      </div>
+      <p class="mt-3">Description</p>
+      <ul>
+        <li>This t-shirt features a beautifully crafted design that adds an
+          elegant touch to any wardrobe.</li>
+        <li>The soft, breathable fabric ensures all-day comfort, while the
+          classic fit flatters every body type.</li>
+        <li>Designed for versatility, it pairs perfectly with jeans, shorts, or
+            skirts.</li>
+        <li>Fully pre-shrunk for a perfect fit-no worries about fading or
+          stretching!</li>
+      </ul>
+      <div class=" row ">
+        <div class="col-5" *ngIf="product.materials">
+            <span>Frame material</span>
+            <ng-select [items]="product.materials"
+            bindLabel="name" 
+            bindValue="id" 
+            placeholder={{product.materials[0].name}}>
+            </ng-select>
+        </div>
+        <div class="col-5" *ngIf="product.colors">
+            <span>color</span>
+            <ng-select [items]="product.colors"
+            bindLabel="name" 
+            bindValue="id" 
+            placeholder={{product.colors[0].name}} >
+            </ng-select>
+        </div>
+        <div class="col-2">
+            <span>Quantity</span>
+            <div >
+              <input type="number" class="col-12">
+            </div>
+        </div>
+      </div>
+      <button href="#" class="btn btn-primary mt-3">ADD TO CART</button>
+    </div>
+  </div>
+</div>
+
